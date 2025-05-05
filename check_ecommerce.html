@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Test Diagnóstico Ecommerce</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    form {
+      max-width: 800px;
+      margin: auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .section {
+      background-color: #f0f0f0;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 30px;
+    }
+
+    .section h2 {
+      color: #444;
+      margin-bottom: 15px;
+    }
+
+    .question {
+      padding: 15px 0;
+      border-top: 1px solid #ccc;
+    }
+
+    .question:first-child {
+      border-top: none;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #333;
+    }
+
+    input[type="range"] {
+      width: 100%;
+    }
+
+    .button {
+      background-color: #007acc;
+      color: white;
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      display: block;
+      margin: 30px auto 10px;
+    }
+
+    .button:hover {
+      background-color: #005fa3;
+    }
+
+    .result {
+      max-width: 800px;
+      margin: 20px auto;
+      background-color: #e9ffe9;
+      padding: 20px;
+      border-radius: 10px;
+      border-left: 5px solid #4CAF50;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>Test Diagnóstico Ecommerce</h1>
+  <form id="diagnosticForm">
+
+    <div class="section" id="seccion1">
+      <h2>Propósito y Comunicación de Marca</h2>
+      <div class="question">
+        <label>1. ¿Identificas claramente cuál es la propuesta de valor que brindas al cliente?<br>¿Sabes claramente para qué existe tu marca?</label>
+        <input type="range" name="s1q1" min="1" max="5" value="3">
+      </div>
+      <div class="question">
+        <label>2. ¿Tienen claramente identificado qué problema, necesidad o deseo solucionan sus servicios o productos?</label>
+        <input type="range" name="s1q2" min="1" max="5" value="3">
+      </div>
+      <div class="question">
+        <label>3. ¿Comunican en sus mensajes de difusión las fortalezas de la marca y las fortalezas de sus productos?</label>
+        <input type="range" name="s1q3" min="1" max="5" value="3">
+      </div>
+    </div>
+
+    <div class="section" id="seccion2">
+      <h2>Enfoque Estratégico y Recursos</h2>
+      <div class="question">
+        <label>1. ¿Identifican qué genera el 80% de los resultados para enfocar sus recursos?</label>
+        <input type="range" name="s2q1" min="1" max="5" value="3">
+      </div>
+      <div class="question">
+        <label>2. ¿Tienen tablero de datos para monitorear rentabilidad?</label>
+        <input type="range" name="s2q2" min="1" max="5" value="3">
+      </div>
+      <div class="question">
+        <label>3. ¿Tienen tablero de reportes para detectar desvíos?</label>
+        <input type="range" name="s2q3" min="1" max="5" value="3">
+      </div>
+    </div>
+
+    <div class="section" id="seccion3">
+      <h2>Acciones Comerciales Inteligentes</h2>
+      <div class="question">
+        <label>1. ¿Realizan campañas de recompra segmentadas según comportamiento del cliente?</label>
+        <input type="range" name="s3q1" min="1" max="5" value="3">
+      </div>
+      <div class="question">
+        <label>2. ¿Realizan campañas de cross selling?</label>
+        <input type="range" name="s3q2" min="1" max="5" value="3">
+      </div>
+      <div class="question">
+        <label>3. ¿Usan tableros para ofertas relámpago con productos relevantes y complementarios?</label>
+        <input type="range" name="s3q3" min="1" max="5" value="3">
+      </div>
+    </div>
+
+    <div class="section" id="seccion4">
+      <h2>Experiencia del Cliente y Fidelización</h2>
+      <div class="question">
+        <label>1. ¿Tienen sistema de atención al cliente con fase automática y fase humana?</label>
+        <input type="range" name="s4q1" min="1" max="5" value="3">
+      </div>
+      <div class="question">
+        <label>2. ¿Tienen sistema de fidelización con recomendaciones y beneficios personalizados?</label>
+        <input type="range" name="s4q2" min="1" max="5" value="3">
+      </div>
+      <div class="question">
+        <label>3. ¿Aplican automatizaciones para ventas, recomendaciones y fidelización?</label>
+        <input type="range" name="s4q3" min="1" max="5" value="3">
+      </div>
+    </div>
+
+    <button type="button" class="button" onclick="calcularResultados()">Ver Resultados</button>
+    <div id="resultados" class="result"></div>
+  </form>
+
+  <script>
+    function calcularResultados() {
+      const form = document.forms["diagnosticForm"];
+      let total = 0;
+      let secciones = [0, 0, 0, 0];
+
+      for (let i = 1; i <= 4; i++) {
+        for (let j = 1; j <= 3; j++) {
+          const valor = parseInt(form[`s${i}q${j}`].value);
+          secciones[i - 1] += valor;
+          total += valor;
+        }
+      }
+
+      let mensaje = `Resultado general: <strong>${total} / 60</strong><br><br>`;
+      mensaje += `🔹 Propósito y Comunicación de Marca: ${secciones[0]} / 15<br>`;
+      mensaje += `🔹 Enfoque Estratégico y Recursos: ${secciones[1]} / 15<br>`;
+      mensaje += `🔹 Acciones Comerciales Inteligentes: ${secciones[2]} / 15<br>`;
+      mensaje += `🔹 Experiencia del Cliente y Fidelización: ${secciones[3]} / 15<br>`;
+
+      document.getElementById("resultados").innerHTML = mensaje;
+    }
+  </script>
+</body>
+</html>
